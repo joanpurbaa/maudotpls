@@ -25,7 +25,6 @@ export const useQuiz = () => {
 	const [loading, setLoading] = useState<boolean>(false);
 	const [showResumePrompt, setShowResumePrompt] = useState<boolean>(false);
 
-	// Load saved quiz data on component mount
 	useEffect(() => {
 		const savedData = loadQuizData();
 		if (
@@ -37,7 +36,6 @@ export const useQuiz = () => {
 		}
 	}, []);
 
-	// Auto-save quiz progress
 	useEffect(() => {
 		if (quizStarted && !quizFinished) {
 			const dataToSave: Partial<QuizData> = {
@@ -62,14 +60,12 @@ export const useQuiz = () => {
 		quizFinished,
 	]);
 
-	// Clear data when quiz finishes
 	useEffect(() => {
 		if (quizFinished) {
 			clearQuizData();
 		}
 	}, [quizFinished]);
 
-	// Timer effect
 	useEffect(() => {
 		if (quizStarted && !quizFinished && timeLeft > 0) {
 			const timer = setTimeout(() => {
@@ -136,7 +132,7 @@ export const useQuiz = () => {
 	const handleStartQuiz = async (): Promise<void> => {
 		await fetchQuestions();
 		setQuizStarted(true);
-		setTimeLeft(600);
+		setTimeLeft(180);
 	};
 
 	const handleAnswerSelect = (selectedAnswer: string): void => {
@@ -171,7 +167,7 @@ export const useQuiz = () => {
 		setQuestions([]);
 		setCurrentQuestionIndex(0);
 		setAnswers([]);
-		setTimeLeft(600);
+		setTimeLeft(180);
 		setQuizStarted(false);
 		setQuizFinished(false);
 	};
